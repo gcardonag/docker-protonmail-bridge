@@ -7,11 +7,12 @@ ARG SMTP_PORT
 ARG IMAP_PORT
 
 ENV PROTONMAIL_BRIDGE_FILE=protonmail-bridge_${PROTONMAIL_BRIDGE_VERSION}_amd64.deb
+ENV PROTONMAIL_BRIDGE_FILE_URI=https://protonmail.com/download/bridge/${PROTONMAIL_BRIDGE_FILE}
 ENV USER=protonmail
 ENV DEBIAN_FRONTEND=noninteractive
 
 # install packages
-COPY ./${PROTONMAIL_BRIDGE_FILE} .
+ADD ${PROTONMAIL_BRIDGE_FILE_URI} .
 RUN apt-get update -q && \
     apt-get install --no-install-recommends --no-install-suggests --yes \
         ./${PROTONMAIL_BRIDGE_FILE} \
